@@ -52,25 +52,7 @@ function modalCloseEl() {
   lightboxImageEl.src = '';
 }
 
-function modalCloseBackdropEl() {
-  window.removeEventListener('keydown', onEscKeyPress);
-  document.body.classList.remove('is-open');
-}
 
-function modalCloseEscEl(event) {
-  if (event.currentTarget === event.target) {
-    console.log('Кликнули именно в бекдроп!!!!');
-    modalCloseEl();
-  }
-}
-function onEscKeyPress(event) {
-  const ESC_KEY_CODE = 'Escape';
-  const isEscKey = event.code === ESC_KEY_CODE;
-
-  if (isEscKey) {
-    modalCloseBackdropEl();
-  }
-}
 
 // function stopDefAction(evt) {
 //   evt.preventDefault();
