@@ -54,14 +54,44 @@ function modalCloseEl() {
   lightboxImageEl.src = ' ';
 }
 
+const originalUrls = images.map(({ original }) => original);
+
+function goToPreviousImage(array, url) {
+
+  for (let i = 0; i < array.length; i++) {
+    if (url === array[i] && i > 0) {
+      console.log([i]);
+      lightboxImageEl.src = array[i-1];
+      console.log(lightboxImageEl.src);
+    }
+  }
+}
+function goToNextImage(array, url) {
+
+  for (let i = 0; i < array.length; i++) {
+    if (url === array[i] && i < array.length-1) {
+      console.log([i]);
+      lightboxImageEl.src = array[i+1];
+      console.log(lightboxImageEl.src);}
+  }
+}
+
 function onKeyPress(evt) {
   const ESC_KEY_CODE = 'Escape';
+  const LEFT_KEY_CODE = 'ArrowLeft';
+  const RIGHT_KEY_CODE = 'ArrowRight';
   
   const isEscKey = evt.code === ESC_KEY_CODE;
+  const isLeftKey = evt.code === LEFT_KEY_CODE;
+  const isRightKey = evt.code === RIGHT_KEY_CODE;
   
   if (isEscKey) {
     modalCloseEl();
-  }
+  } else if (isLeftKey) {
+    goToPreviousImage(originalUrls, lightboxImageEl.src);
+  } else if (isRightKey) {
+    goToNextImage(originalUrls, lightboxImageEl.src);
+  } else { return;}
 }
 
 function onBackdropClick(evt) {
