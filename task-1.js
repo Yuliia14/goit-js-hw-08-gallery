@@ -4,6 +4,7 @@ const listContainer = document.querySelector('.js-gallery');
 const lightboxButtonEl = document.querySelector('[data-action="close-lightbox"]');
 const lightboxImageEl = document.querySelector(".lightbox__image");
 const backdropEl = document.querySelector('.lightbox__overlay');
+const lightBoxEl = document.querySelector('.js-lightbox');
 
 const cardImagesGallery = createImagesGallery(images);
 
@@ -35,22 +36,22 @@ function stopDefAction(evt) {
 }
 
 function onGalleryContainerClick(evt) {
+  stopDefAction(evt);
   if (evt.target.nodeName !== 'IMG') {
     return;
   } else {
-    document.querySelector('.js-lightbox').classList.add('is-open');
+    lightBoxEl.classList.add('is-open');
 
     lightboxButtonEl.addEventListener('click', modalCloseEl)
     window.addEventListener('keydown', onKeyPress);
-    backdropEl.addEventListener('click', onBackdropClick)
+    backdropEl.addEventListener('click', modalCloseEl)
 
     lightboxImageEl.src = evt.target.dataset.source;
     lightboxImageEl.alt = evt.target.alt;
   }
-  stopDefAction(evt);
 }
 function modalCloseEl() {
-  document.querySelector(".js-lightbox").classList.remove("is-open");
+  lightBoxEl.classList.remove("is-open");
   lightboxImageEl.src = ' ';
 }
 
@@ -91,11 +92,5 @@ function onKeyPress(evt) {
     goToPreviousImage(originalUrls, lightboxImageEl.src);
   } else if (isRightKey) {
     goToNextImage(originalUrls, lightboxImageEl.src);
-  } else { return;}
-}
-
-function onBackdropClick(evt) {
-  if (evt.currentTarget === evt.target) {
-    modalCloseEl();
   }
 }
